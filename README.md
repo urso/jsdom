@@ -1,4 +1,3 @@
-
 Introduction
 ============
 JSDom provides DOM like classes, thus it's possible to parse and manipulate
@@ -19,7 +18,7 @@ depending on input data) using *parseDom(\<String\>)*. The JSDom Elements
 support a quite extensive subset of the DOM functionality supported by most
 browsers. If the JavaScript engine supports setters/getters the same way
 Firefox does even innerHTML, innerText functionality will work, otherwise one
-has to use setInnerHTML/getInnerHTML, setInnerText/getInnerText.
+has to use setInnerHTML/getInnerHTML, setInnerText/getInnerText respectively.
 
 Credits
 ========
