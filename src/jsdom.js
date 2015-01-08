@@ -15,6 +15,9 @@
 
 (function() {
 
+var $defined = function(obj){
+    return (obj != undefined);
+};
     /** @scope _global_ */
     /**
      * Abstract class for more specific DOM-Node classes.
@@ -82,7 +85,7 @@
         this.id = null;
         this.lang = null;
 
-        var attrs = !attrs ? [] : $A(attrs).filter(function(x){
+        var attrs = !attrs ? [] : Array.from(attrs).filter(function(x){
                     if(x.nodeName == "class") {
                         this.className = x.nodeValue; 
                         return false; 
@@ -179,7 +182,13 @@
         if(!child || !child.parentNode || child.parentNode !== this)
             return undefined;
 
-        this.childNodes.erase(child);
+        function erase(arr, item){
+            for (var i = arr.length; i--;){
+                if (arr[i] === item) arr.splice(i, 1);
+            }
+            return arr;
+        }
+        erase(this.childNodes, child);
         if(child.previousSibling) {
             child.previousSibling.nextSibling = child.nextSibling;
         }
@@ -216,11 +225,12 @@
                     return selector(elem) ? 
                              [elem].concat(children) : 
                              children;
-                }).each( function(elemSubs){
+                }).forEach( function(elemSubs){
                     if(elemSubs && elemSubs.length>0)
                         ret = ret.concat(elemSubs.filter(function(x){return x}));
                 });
-        return (!ret || ret.length == 0) ? null : ret;
+        //return (!ret || ret.length == 0) ? null : ret;
+        return ret;
     };
 
     DomElement.prototype.getElementsByTagName = function(name) {
